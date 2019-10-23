@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.tutorijal02;
 
+import java.util.Objects;
+
 public class Interval {
 
     private double pocetnaTacka;
@@ -7,7 +9,7 @@ public class Interval {
     private boolean ukljucivanjePT;
     private boolean ukljucivanjeKT;
 
-    public Interval() {
+    Interval() {
         pocetnaTacka = 0;
         krajnaTacka = 0;
         ukljucivanjePT = false;
@@ -72,7 +74,7 @@ public class Interval {
         return novi;
     }
 
-
+    @Override
     public String toString() {
         String s;
         if(ukljucivanjePT) s = "[";
@@ -88,11 +90,20 @@ public class Interval {
         return s;
     }
 
-    boolean equals(Interval i) {
-        return ukljucivanjeKT == i.ukljucivanjeKT && ukljucivanjePT == i.ukljucivanjePT && pocetnaTacka == i.pocetnaTacka && krajnaTacka == i.krajnaTacka;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Interval interval = (Interval) o;
+        return Double.compare(interval.pocetnaTacka, pocetnaTacka) == 0 &&
+                Double.compare(interval.krajnaTacka, krajnaTacka) == 0 &&
+                ukljucivanjePT == interval.ukljucivanjePT &&
+                ukljucivanjeKT == interval.ukljucivanjeKT;
     }
 
-
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(pocetnaTacka, krajnaTacka, ukljucivanjePT, ukljucivanjeKT);
+    }
 
 }
